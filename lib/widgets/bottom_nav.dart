@@ -35,7 +35,9 @@ class BottomNavBar extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                print('yet to implement');
+              },
               icon: Icon(Icons.person),
             ),
             label: 'account',

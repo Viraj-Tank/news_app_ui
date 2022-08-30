@@ -11,7 +11,7 @@ static const routeName = "/article";
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      bottomNavigationBar: BottomNavBar(index:2),
+      
     );
   }
 }
