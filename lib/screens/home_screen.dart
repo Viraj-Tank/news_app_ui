@@ -4,6 +4,7 @@ import 'package:news_app_ui/widgets/custom_tag.dart';
 
 import '../widgets/bottom_nav.dart';
 import '../widgets/home_image_container.dart';
+import '../widgets/news_of_the_day.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -26,25 +27,65 @@ class HomeScreen extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.zero,
         children: [
-          HomeImageContainer(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.45,
-            imageUrl: Article.articles[1].imageUrl,
-            padding: EdgeInsets.all(20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start, children: [
-              CustomTag(
-                bgColor: Colors.grey.withOpacity(0.4),
-                children: [
-                  Text("News of the Day"),
-                ],
-              )
-            ]),
-          ),
+          NewsOfTheDay(),
+          _BreakingNews(articles: Article.articles),
         ],
       ),
       bottomNavigationBar: BottomNavBar(index: 0),
+    );
+  }
+}
+
+class _BreakingNews extends StatelessWidget {
+  final List<Article> articles;
+  const _BreakingNews({Key? key, required this.articles}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.all(16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "News of the Day",
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineSmall!
+                    .copyWith(fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "More",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge!
+                    .copyWith(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 125,
+          child: ListView.builder(
+            itemCount: articles.length,
+            itemBuilder: (context, index) {
+              return Container(
+                margin: EdgeInsets.only(right: 10),
+                child: Column(
+                  children: [
+                    HomeImageContainer(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        imageUrl: articles[index].imageUrl),
+                  ],
+                ),
+              );
+            },
+            scrollDirection: Axis.horizontal,
+          ),
+        ),
+      ],
     );
   }
 }
